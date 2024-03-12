@@ -25,6 +25,10 @@ $app->get("/impianto","ImpiantoController:index");
 $app->get("/dispositivi_di_allarme","ImpiantoController:allarme");
 $app->get("/dispositivi_di_allarme/{id}","ImpiantoController:IDallarme");
 
+$app->get("/rilevatori_di_pressione","ImpiantoController:pressione");
+$app->get("/rilevatori_di_pressione/{id}","ImpiantoController:IDpressione");
+$app->get("/rilevatori_di_pressione/{id}/misurazioni","ImpiantoController:IDpressioneMisurazioni");
+
 
 
 

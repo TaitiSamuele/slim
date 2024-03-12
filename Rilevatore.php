@@ -6,15 +6,27 @@
         protected $codiceSeriale;
         protected $misurazioni = array();
 
-        public function __construct($id, $unitaMisura, $codiceSeriale, $misurazioni){   
+        public function __construct($id, $unitaMisura, $codiceSeriale, $soglia){   
             $this -> id = $id;
             $this ->unitaMisura = $unitaMisura;
+            $this ->soglia = $soglia;
             $this ->codiceSeriale = $codiceSeriale;
-            $this ->soglia = $misurazioni;
         }
 
         public function addMisura($data, $valore){
             $this ->misurazioni[] = [$data => $valore];
+        }
+
+        public function getMisura(){
+            return $this -> unitaMisura;
+        }
+
+        public function getid(){
+            return $this -> id;
+        }
+
+        public function getMisurazioni(){
+            return $this -> misurazioni;   
         }
         
     }

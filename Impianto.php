@@ -27,10 +27,29 @@ class Impianto implements JsonSerializable
         return $this -> dispositivoDiAllarme;
     }
 
+    public function getDispositiviPressione(){
+        $dispositivi = array();
+        foreach ($this -> rilevatore as $disp){
+            if($disp instanceof RilevatoreDiPressione){
+                $dispositivi[] = $disp;
+            }
+
+        }
+        return $dispositivi;
+    }
+
     public function getAllarme($id){
         foreach($this -> dispositivoDiAllarme as $all){
             if($all ->getId() == $id){
                 return $all;
+            }
+        }
+    }
+    public function getpressione($id){
+        $dispositivi = $this -> getDispositiviPressione();
+        foreach($dispositivi as $disp){
+            if($disp ->getId() == $id){
+                return $disp;
             }
         }
     }
