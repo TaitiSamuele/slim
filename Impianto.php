@@ -6,19 +6,40 @@ class Impianto implements JsonSerializable
     protected $latitudine;
     protected $longitudine;
 
-    protected $DispositivoDiAllarme = array();
-    protected $Rilevatore = array();
+    protected $dispositivoDiAllarme = array();
+    protected $rilevatore = array();
 
-    public function __construct()
+    public function __construct($nome, $latitudine, $longitudine)
     {
-        $this->nome = "impianto 1";
-        $this -> latitudine = "22.22";
-        $this -> longitudine = "55.55";
+        $this->nome = $nome;
+        $this -> latitudine = $latitudine;
+        $this -> longitudine = $longitudine;
+    }
 
-
+    public function addAllarme($allarme){
+        array_push($this-> dispositivoDiAllarme, $allarme);
+    }
+    public function addRivelatore($rilevatore){
+        array_push($this->rilevatore, $rilevatore);
     }
     
+    public function getDispositiviDiAllarme(){
+        return $this -> dispositivoDiAllarme;
+    }
+
+    public function getAllarme($id){
+        foreach($this -> dispositivoDiAllarme as $all){
+            if($all ->getId() == $id){
+                return $all;
+            }
+        }
+    }
     
-    
-    public function jsonSerialize(){}
+    public function jsonSerialize(){
+        return [
+            'nome' => $this->nome,
+            'latitudine' => $this->latitudine,
+            'longitudine' => $this->longitudine,
+        ];
+    }
 }

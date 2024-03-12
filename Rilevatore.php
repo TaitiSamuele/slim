@@ -12,5 +12,9 @@
             $this ->codiceSeriale = $codiceSeriale;
             $this ->soglia = $misurazioni;
         }
+
+        public function addMisura($data, $valore){
+            $this ->misurazioni[] = [$data => $valore];
+        }
         
     }
