@@ -18,5 +18,7 @@ $app->get('/alunni/{nome}', "AlunniController:show");
 
 $app->get('/api/alunni', "AlunniApiController:index");
 
+echo "ciao";
+
 
 $app->run();
