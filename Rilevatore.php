@@ -14,7 +14,7 @@
         }
 
         public function addMisura($data, $valore){
-            $this ->misurazioni[] = [$data => $valore];
+            $this->misurazioni[] = [$data => $valore];
         }
 
         public function getMisura(){

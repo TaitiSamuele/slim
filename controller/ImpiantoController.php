@@ -7,6 +7,7 @@ require_once 'Impianto.php';
 require_once 'DispositivoDiAllarme.php';
 require_once 'Rilevatore.php';
 require_once 'RilevatoreDiPressione.php';
+require_once 'RilevatoreDiUmidita.php';
 
 Class ImpiantoController{
 
@@ -47,6 +48,9 @@ Class ImpiantoController{
         $pres = new RilevatoreDiPressione("1", "qwerty", "terra", "200");
         $pres1 = new RilevatoreDiPressione("2", "wasd", "aria", "1000");
         $pres2 = new RilevatoreDiPressione("3", "zxcvc", "terra", "150");
+
+        $pres -> addMisura("12/12/2020", "1000");
+
         $impianto -> addRivelatore($pres);
         $impianto -> addRivelatore($pres1);
         $impianto -> addRivelatore($pres2);
@@ -84,25 +88,50 @@ Class ImpiantoController{
 
         $pres = $impianto -> getpressione($args["id"]);
 
-        $response->getBody()->write(json_encode($pres -> getMisura()));
+        $response->getBody()->write(json_encode($pres -> getMisurazioni()));
         return $response -> withHeader('Content-Type', 'application/json');
     }
 
-    public function Umidita(Request $request, Response $response, $args){
+    public function umidita(Request $request, Response $response, $args){
         $impianto = new Impianto("impianto 1", "22.22", "55.55");
-        $pres = new RilevatoreDiPressione("1", "qwerty", "terra", "200");
-        $pres1 = new RilevatoreDiPressione("2", "wasd", "aria", "1000");
-        $pres2 = new RilevatoreDiPressione("3", "zxcvc", "terra", "150");
+        $umid = new RilevatoreDiUmidita("1", "qwerty", "100", "acqua");
+        $umid1 = new RilevatoreDiUmidita("2", "qwerty", "100", "gas");
 
-        $pres -> addMisura("12/12/2020", "1000");
+        $impianto -> addRivelatore($umid1);
+        $impianto -> addRivelatore($umid);
 
-        $impianto -> addRivelatore($pres);
-        $impianto -> addRivelatore($pres1);
-        $impianto -> addRivelatore($pres2);
 
-        $pres = $impianto -> getpressione($args["id"]);
-
-        $response->getBody()->write(json_encode($pres -> getMisura()));
+        $response->getBody()->write(json_encode($impianto -> getDispositiviUmidita()));
         return $response -> withHeader('Content-Type', 'application/json');
-    } 
+    }
+    
+    public function IDumidita(Request $request, Response $response, $args){
+        $impianto = new Impianto("impianto 1", "22.22", "55.55");
+        $umid = new RilevatoreDiUmidita("1", "qwerty", "100", "acqua");
+        $umid1 = new RilevatoreDiUmidita("2", "qwerty", "100", "gas");
+
+        $impianto -> addRivelatore($umid1);
+        $impianto -> addRivelatore($umid);
+
+        $umid = $impianto -> getUmidita($args["id"]);
+
+        $response->getBody()->write(json_encode($umid));
+        return $response -> withHeader('Content-Type', 'application/json');
+    }
+
+    public function IDumiditaMisurazioni(Request $request, Response $response, $args){
+        $impianto = new Impianto("impianto 1", "22.22", "55.55");
+        $umid = new RilevatoreDiUmidita("1", "qwerty", "100", "acqua");
+        $umid1 = new RilevatoreDiUmidita("2", "qwerty", "100", "gas");
+
+        $umid -> addMisura("12/12/2020", "1000");
+        $impianto -> addRivelatore($umid1);
+        $impianto -> addRivelatore($umid);
+
+
+        $umid = $impianto -> getUmidita($args["id"]);
+
+        $response->getBody()->write(json_encode($umid));
+        return $response -> withHeader('Content-Type', 'application/json');
+    }
 }
